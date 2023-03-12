@@ -2,12 +2,12 @@
 
  main()
 {
-    printf("Hello, World\n");
-    printf("Hello, World new line \t");
-    printf("Hello, World third line \b");
-    printf("Hello, World third line \\");
+    printf("Hello, World\n"); // new line
+    printf("Hello, World new line \t");  // tab
+    printf("Hello, World third line \b"); // backlash
+    printf("Hello, World third line \\"); // double slash
     //printf("Hello, World third line \");
-   // printf("Hello, World third line \c");
+   // printf("Hello, World third line \c"); comments
 
     return (0);
 }
