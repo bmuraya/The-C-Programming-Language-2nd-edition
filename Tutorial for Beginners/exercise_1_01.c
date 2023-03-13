@@ -12,28 +12,31 @@
  THAN WRITING 100 EVERY TIME  YOU CAN USE JUST MAX EVERY TIME YOU USE MAX */
 
  /*GLOBAL DECLARARION SECTIION    FUNTION THAT ARE USE IN MORE THAT ONE
- CAN BE DECLARED OUTSIDE THE FUNCTION */ 
+ CAN BE DECLARED OUTSIDE THE FUNCTION */
 
 // Global declaration of a variable   int a,
 // Global declaration of a function eg void sum();
 //                                     void sub();
 
+// main section is a must any program you have to have one main function
 
-// main section is a must any program you have to have one main function 
-
- main() // function
+ void main() // function
 {
     // Declaration and executionsection
-    printf("Hello, World\n"); // new line
+    printf("Hello, World!\n"); // new line
     printf("Hello, World new line \t");  // tab
     printf("Hello, World third line \b"); // backlash
-    printf("Hello, World third line \\"); // double slash
+    printf("Hello, World third line \n"); // double slash
     //printf("Hello, World third line \");
    // printf("Hello, World third line \c"); comments
+
+    printf("-------------\n");
+    printf("|Hello World|\n");
+    printf("-------------\n");
+
+
 
     return (0);
 }
 
-//sub program section Optional 
-
-
+//sub program section Optional
