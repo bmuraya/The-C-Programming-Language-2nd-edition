@@ -1,42 +1,31 @@
-// Documentation section
-// single line comments
-/*  Authors  babu muraya
-    Date 12/03/2023
-    hello world progam print
-**/
-#include <stdio.h> //  (link section) built in function and standard library for printf scanf
+// for statement  on temperatur converter
 
+/* print Fahrenheit -Celsius Table */
 
- // definition section
- #define MAX 100  /*EVERY  WHERE MAX IT WILL BE REPLCE BY 100 VALUE SO RATHER
- THAN WRITING 100 EVERY TIME  YOU CAN USE JUST MAX EVERY TIME YOU USE MAX */
+#include <stdio.h>
 
- /*GLOBAL DECLARARION SECTIION    FUNTION THAT ARE USE IN MORE THAT ONE
- CAN BE DECLARED OUTSIDE THE FUNCTION */
-
-// Global declaration of a variable   int a,
-// Global declaration of a function eg void sum();
-//                                     void sub();
-
-// main section is a must any program you have to have one main function
-
- void main() // function
+int main()
 {
-    // Declaration and executionsection
-    printf("Hello, World!\n"); // new line
-    printf("Hello, World new line \t");  // tab
-    printf("Hello, World third line \b"); // backlash
-    printf("Hello, World third line \n"); // double slash
-    //printf("Hello, World third line \");
-   // printf("Hello, World third line \c"); comments
+  int fahr;
+  printf("\tFahrenheit | Celsius\n");
+    printf("\t------------------\n");
 
-    printf("-------------\n");
-    printf("|Hello World|\n");
-    printf("-------------\n");
+  for (fahr = 300; fahr >= 0; fahr -=20)
+  printf("\t%d\t %6.1f\n" , fahr, (5.0/9.0)*(fahr-32));
+
+  /*  float celsius, fahr;
+    int lower = 0, upper = 300, step =20;
+
+    printf("Celsius\t | Fahrenheit\n");
+    printf("--------------------\n");
+    celsius = lower ;
+
+    for(celsius=lower; celsius <= upper; celsius+=step)
+
+        // fahr = (9.0/5.0) * ( celsius+ 32.0);
+        //fahr = (celsius * 9.0/ 5.0) + 32.0f; // formula �F = �C � (9/5) + 32
+
+        printf("%3.0f\t %6.1f\n",celsius, 1.8 *(celsius+32));*/
 
 
-
-    return (0);
 }
-
-//sub program section Optional
