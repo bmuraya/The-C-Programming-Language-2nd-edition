@@ -4,28 +4,33 @@
 
 #include <stdio.h>
 
-int main()
+/*int main()
 {
-  int fahr;
-  printf("\tFahrenheit | Celsius\n");
-    printf("\t------------------\n");
+    int i, j, sum;
+    printf("Enter a Number \n");
+    scanf("%d",&j);
 
-  for (fahr = 300; fahr >= 0; fahr -=20)
-  printf("\t%d\t %6.1f\n" , fahr, (5.0/9.0)*(fahr-32));
+    for(i=1; i<=10; i++)
+{
+    sum = j*i;
+    printf("%d*%d=%d\n" ,j,i,sum);
 
-  /*  float celsius, fahr;
-    int lower = 0, upper = 300, step =20;
 
-    printf("Celsius\t | Fahrenheit\n");
-    printf("--------------------\n");
-    celsius = lower ;
+}
 
-    for(celsius=lower; celsius <= upper; celsius+=step)
+getchar();
+}*/
+void main ()
+{
+    char ch= 'A', zh= 'Z';
 
-        // fahr = (9.0/5.0) * ( celsius+ 32.0);
-        //fahr = (celsius * 9.0/ 5.0) + 32.0f; // formula �F = �C � (9/5) + 32
+    while(ch<=zh)
+    {
+        printf("%c \'", ch);
+        ch++;
+    }
 
-        printf("%3.0f\t %6.1f\n",celsius, 1.8 *(celsius+32));*/
-
+    //printf("Error message or end of program");
+    getch();
 
 }
