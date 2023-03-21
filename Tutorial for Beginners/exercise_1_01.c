@@ -1,6 +1,6 @@
-// for statement  on temperatur converter
+// for statement   c program print alphabet in uppercase A TO Z
 
-/* print Fahrenheit -Celsius Table */
+/*  c program print alphabet in uppercase A TO Z */
 
 #include <stdio.h>
 
