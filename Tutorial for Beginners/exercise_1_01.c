@@ -3,15 +3,13 @@
 
 /*copy content  on get and put*/
 
- void main ()
- {
-     char ch[35];
-     printf("enter charcter \n ");
-     gets(ch);
-      printf("your is charcter \n ");
-      puts(ch);
+main()
+{
+ int c;
+ while ((c = getchar()) != EOF)
+    putchar(c);
 
-      gets(ch);
+
 }
 
 
