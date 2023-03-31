@@ -1,36 +1,31 @@
-// for statement   c program print alphabet in uppercase A TO Z
-
-/*  c program print alphabet in uppercase A TO Z */
 
 #include <stdio.h>
 
-/*int main()
-{
-    int i, j, sum;
-    printf("Enter a Number \n");
-    scanf("%d",&j);
+/*copy content  on get and put*/
 
-    for(i=1; i<=10; i++)
-{
-    sum = j*i;
-    printf("%d*%d=%d\n" ,j,i,sum);
+ void main ()
+ {
+     char ch[35];
+     printf("enter charcter \n ");
+     gets(ch);
+      printf("your is charcter \n ");
+      puts(ch);
 
-
+      gets(ch);
 }
 
-getchar();
-}*/
-void main ()
-{
-    char ch= 'A', zh= 'Z';
 
-    while(ch<=zh)
+/*copy input to output 1st version
+main()
+{
+    int c;
+
+    c= getchar();
+    while(c != EOF)
     {
-        printf("%c \'", ch);
-        ch++;
+        putchar(c);
+        c= getchar();
     }
 
-    //printf("Error message or end of program");
-    getch();
-
 }
+*/
