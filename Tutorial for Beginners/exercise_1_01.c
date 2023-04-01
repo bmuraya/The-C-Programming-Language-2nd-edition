@@ -1,29 +1,38 @@
-
+/* get the gret number of  int  A B C*/
 #include <stdio.h>
 
-/*copy content  on get and put*/
-
-main()
+int main ()
 {
- int c;
- while ((c = getchar()) != EOF)
-    putchar(c);
+    int A, B,C;
 
+    printf("Enter A B and  C \n");
 
-}
+    scanf(" %d %d %d", &A , &B , &C);
 
-
-/*copy input to output 1st version
-main()
-{
-    int c;
-
-    c= getchar();
-    while(c != EOF)
+    if(A>B)
     {
-        putchar(c);
-        c= getchar();
+        if (A>C)
+        {
+            printf("A is largets \n");
+        }
+        else
+        {
+            printf("C the largest \n");
+        }
+
+    }
+
+    else
+    {
+        if (B>C)
+        {
+            printf("B is largets \n");
+        }
+        else
+        {
+            printf("C the largest \n");
+        }
+
     }
 
 }
-*/
