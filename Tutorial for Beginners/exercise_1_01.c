@@ -1,38 +1,25 @@
-/* get the gret number of  int  A B C*/
+/**
+ * Exercise 1.9 - Write a Program to copy its input to its output, replacing
+ * each string of one or more blanks by a single blank.
+ *
+ * */
+
 #include <stdio.h>
 
-int main ()
-{
-    int A, B,C;
+#define NONBLANK '-'
 
-    printf("Enter A B and  C \n");
+int main(void) {
+    int c, lastc;
 
-    scanf(" %d %d %d", &A , &B , &C);
+    lastc = NONBLANK;
 
-    if(A>B)
-    {
-        if (A>C)
-        {
-            printf("A is largets \n");
-        }
-        else
-        {
-            printf("C the largest \n");
-        }
-
+    while ((c = getchar()) != EOF) {
+        if (c == ' ') {
+            if (lastc != ' ')
+                putchar(c);
+        } else
+            putchar(c);
+        lastc = c;
     }
-
-    else
-    {
-        if (B>C)
-        {
-            printf("B is largets \n");
-        }
-        else
-        {
-            printf("C the largest \n");
-        }
-
-    }
-
+    return 0;
 }

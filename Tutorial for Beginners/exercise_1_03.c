@@ -22,14 +22,14 @@
 // --  or - 1 decrement
 
 
-/*/ The formula to convert °f to °c is c = 5/9 × (f – 32).
-convert 50°c to °f. Celsius and Fahrenheit are the two important
+/*/ The formula to convert f to c is c = 5/9 ï¿½ (f + 32).
+convert 50ï¿½c to ï¿½f. Celsius and Fahrenheit are the two important
  units to measure temperature. Fahrenheit is more frequently
  used in measuring body temperatures or temperature of liquids,
   whereas celsius is used to measure the climate  also Celsius
-  to Fahrenheit is given by: °F = °C × (9/5) + 32.
+  to Fahrenheit is given by: ï¿½F = ï¿½C ï¿½ (9/5) + 32.
 
-  The formula to convert °f to °c is c = 5/9 × (f – 32).*/
+  The formula to convert f to c is c = 5/9  (f-32).*/
 
 /* print  Fahrenheit -celsius table for fahr = 0, 20 ..... , 300 */
 

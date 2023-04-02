@@ -21,15 +21,15 @@ getchar();
 
 void main ()
 {
-    char ch= 'A', zh= 'Z'
+    char ch= 'A', zh= 'Z';
 
-    while (ch<=zh)
+    while(ch<=zh)
     {
-        printf("%c" ch);
+        printf("%c \'", ch);
         ch++;
     }
-    
-    printf("Erro message or end of program");
-    getchar();
+
+    //printf("Error message or end of program");
+    getch();
 
 }
