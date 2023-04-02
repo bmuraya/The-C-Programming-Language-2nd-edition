@@ -1,25 +1,33 @@
 /**
- * Exercise 1.9 - Write a Program to copy its input to its output, replacing
- * each string of one or more blanks by a single blank.
+ * Exercise 1.10 - Write a Program to copy its input to its output,
+ * replacing each tab by \t, each backspace by \b, and each backslash by \\.
+ * This makes tabs and backspaces visible in an unambiguous way.
  *
  * */
 
 #include <stdio.h>
 
-#define NONBLANK '-'
-
 int main(void) {
-    int c, lastc;
-
-    lastc = NONBLANK;
+    int c;
 
     while ((c = getchar()) != EOF) {
-        if (c == ' ') {
-            if (lastc != ' ')
-                putchar(c);
-        } else
+        if (c == '\t') {
+            putchar('\\');
+            putchar('t');
+        }
+
+        if (c == '\b') {
+            putchar('\\');
+            putchar('b');
+        }
+
+        if (c == '\\') {
+            putchar('\\');
+            putchar('\\');
+        }
+
+        if (c != '\t' && c != '\b' && c != '\\')
             putchar(c);
-        lastc = c;
     }
     return 0;
 }
