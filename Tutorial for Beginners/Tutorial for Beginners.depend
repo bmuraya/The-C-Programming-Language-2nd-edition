@@ -1,6 +1,7 @@
 # depslib dependency file v1.0
-1680456286 source:e:\the-c-programming-language-2nd-edition\tutorial for beginners\exercise_1_01.c
+1680545923 source:e:\the-c-programming-language-2nd-edition\tutorial for beginners\exercise_1_01.c
 	<stdio.h>
+	<string.h>
 
 1678642222 source:e:\the-c-programming-language-2nd-edition\tutorial for beginners\exercise_1_03.c
 	<stdio.h>

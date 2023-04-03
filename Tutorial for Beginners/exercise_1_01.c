@@ -1,33 +1,31 @@
-/**
- * Exercise 1.10 - Write a Program to copy its input to its output,
- * replacing each tab by \t, each backspace by \b, and each backslash by \\.
- * This makes tabs and backspaces visible in an unambiguous way.
- *
- * */
-
 #include <stdio.h>
+/*count blank, tabs and newlines */
 
-int main(void) {
-    int c;
+main()
 
-    while ((c = getchar()) != EOF) {
-        if (c == '\t') {
-            putchar('\\');
-            putchar('t');
+{
+    char c;
+    int tabs_nc =0;
+    int newlines_nl =0;
+    int blank_nc = 0;
+
+    while ((c = getchar())!= EOF)
+    {
+        if(c == ' ')
+        {
+            ++blank_nc;
+        }
+        else if (c== '\t')
+        {
+            ++tabs_nc;
         }
 
-        if (c == '\b') {
-            putchar('\\');
-            putchar('b');
+        else if (c== '\n')
+        {
+            ++newlines_nl;
         }
-
-        if (c == '\\') {
-            putchar('\\');
-            putchar('\\');
-        }
-
-        if (c != '\t' && c != '\b' && c != '\\')
-            putchar(c);
     }
-    return 0;
+    printf("%d \n %d \n %d \n", blank_nc, tabs_nc, newlines_nl);
+
+    return(0);
 }
