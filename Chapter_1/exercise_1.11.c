@@ -6,7 +6,7 @@ main() {
     int c, nl, nw, nc, state;
     state = OUT;
     nl = nw = nc = 0;
-    while ((c = getchar()) != EOF) {
+    while ((c = getchar()) != '*') {
         ++nc;
         if (c == '\n')
             ++nl;
@@ -17,5 +17,5 @@ main() {
             ++nw;
         }
     }
-    printf("%d %d %d\n", nl, nw, nc);
+    printf(" lines %d  words %d  characters %d\n", nl, nw, nc);
 }
