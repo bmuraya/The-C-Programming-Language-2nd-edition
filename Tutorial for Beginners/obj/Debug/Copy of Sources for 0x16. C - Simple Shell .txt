@@ -1,0 +1,556 @@
+﻿0x16. C - Simple Shell
+
+
+A brief explanation of the functions:
+
+
+1. access(): checks if a file or directory exists and if the process has permission to access it
+2. chdir(): changes the current working directory of the process
+3. close(): closes a file descriptor or a stream
+4. closedir(): closes a directory stream 
+5. execve(): replaces the current process image with a new process image
+6. exit(): terminates the calling process with an exit status
+7. _exit(): terminates the calling process without executing cleanup routines
+8. fflush(): flushes the output buffer of a stream
+9. fork(): creates a new process by duplicating the calling process
+10. free(): deallocates memory previously allocated by malloc() or calloc()
+11. getcwd(): gets the current working directory of the process
+12. getline(): reads a line from a stream
+13. getpid(): gets the process ID of the calling process
+14. isatty(): checks if a file descriptor refers to a terminal
+15. kill(): sends a signal to a process or a group of processes
+16. malloc(): allocates memory dynamically
+17. open(): opens a file or creates it if it doesn't exist
+18. opendir(): opens a directory stream
+19. perror(): prints an error message to the standard error stream
+20. read(): reads data from a file descriptor or a stream
+21. readdir(): reads the next entry from a directory stream
+22. signal(): sets a signal handler for a specific signal
+23. stat(_xstat): gets file status information for a file
+24. lstat(_lxstat): gets file status information for a symbolic link
+25. fstat(_fxstat): gets file status information for an open file descriptor
+26. strtok(): splits a string into tokens
+27. wait(): waits for a child process to terminate and returns its exit status
+28. waitpid(): waits for a specific child process to terminate and returns its exit status
+29. wait3(): waits for a child process to terminate and provides more detailed information about its resource usage
+30. wait4(): waits for a specific child process to terminate and provides more detailed information about its resource usage
+31. write(): writes data to a file descriptor or a stream.
+PID & PPID Definitions
+PID -  Process ID. Unique to whatever program or process you run on your PC.
+PPID -  Parent process (Host) of whatever shell you’ll be creating.
+
+
+getpid()
+* Unique process ID number. i.e for every process you create, a unique number is created
+geppid()
+* In layman’s tersms Shell ID number.
+
+
+Scripts to find Max number of PID
+* You can use either of the following to find Max of PID
+1. cat /proc/sys/kernel/pid_max
+2. sysctl -n kernel.pid_max
+
+
+Arguments
+
+
+
+
+Definitions:
+* getline(3) is a C function that allows you to read a line of text from a file or from the user's input (such as when you type something on the command line). It's like when you read a book or a sentence one word at a time, but in this case, you're reading one line at a time.
+* errno - error number and type of error 
+*           - Value is significant only when the return value of the call indicates an error.
+* perror() - prints an error message to stderr. If string is not NULL and does not point to a null character, the string pointed to by string is printed to the standard error stream, followed by a colon and a space.
+* strtok() - C function that breaks a string into a sequence of zero or more nonempty tokens.
+* environ - It points to an array of pointers to strings called the “environment”. 
+           
+
+
+
+
+AV exercise answers
+int main(int __attribute__((unused)) ac, char **av)
+{
+        char **av_ptr = av, newline = '\n';
+  
+        while (*av_ptr != NULL)
+        {
+                write(STDOUT_FILENO, *av_ptr, strlen(*av_ptr));
+                write(STDOUT_FILENO, &newline, 1);
+                av_ptr++;
+        }
+
+
+        return (0);
+}
+
+
+Readline / getline() exercise answer
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Executing a program
+________________
+  Creating Processes
+The fork() returns a value 0 to the child process, and also returns the child’s pid value to father process
+  
+
+
+
+________________
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/wait.h>
+
+
+int main() 
+{
+        pid_t pid; //parent ID
+        int i; // counter
+
+
+        // Create 5 child processes
+        for (i = 0; i < 5; i++) 
+        {
+                pid = fork(); // fork the parent 
+                 
+                if (pid == 0) 
+                {
+                        // Child process
+                        printf("Child %d: PID=%d\n", i + 1, getpid()); // prints parent ID
+                        execl("/bin/ls", "ls", "-l", "/tmp", NULL); // execl() function replaces the current process with new process 
+                        
+                        // execl should not return, unless there is an error
+                        perror("execl");
+                        exit(1);
+                }
+                if (pid == -1) 
+                {
+                        perror("fork"); // prints error 
+                        exit(1); // exit code 1
+                }
+                else 
+                {
+                        // Parent process
+                        int status;
+                        wait(&status); // program waits for the child to pass through
+                        
+                        if (WIFEXITED(status)) // wifeexited() is a function that checks if the child
+                        {
+                                printf("Child %d exited with status %d\n", i + 1, WEXITSTATUS(status));
+                        } 
+                        else if (WIFSIGNALED(status)) 
+                        {
+                                printf("Child %d terminated by signal %d\n", i + 1, WTERMSIG(status));
+                        }
+                }
+        }
+
+
+        return 0;
+}
+
+
+
+
+
+
+The Super Simple Shell Implementation
+
+
+Main function:
+#include "main.h"
+
+
+int main(int __attribute__((unused))argc, char __attribute__((unused))*argv[])
+{
+        ssize_t getlin_ret, bw;
+        size_t n = 0;
+        unsigned int count = 0;
+        char *lineptr = NULL, *copy = NULL;
+        char **tokarr;
+        int status;
+        pid_t ret;
+
+
+        write(STDOUT_FILENO, "$ ", 2);
+        getlin_ret = getline(&lineptr, &n, stdin);
+
+
+        if (getlin_ret < 0)
+                perror("End of File Reached");
+
+
+        copy = malloc(sizeof(char) * (getlin_ret + 1));
+
+
+        strcpy(copy, lineptr);
+
+
+        tokarr = splitstr(lineptr, copy, &count);
+
+
+        ret = fork();
+
+
+        if (ret == 0)
+        {
+                execute(tokarr);
+        }
+
+
+        else
+        {
+        wait(&status);
+        free(lineptr);
+        free(copy);
+        return (0);
+        }
+}
+
+
+
+
+
+
+splitstring.c function
+#include "main.h"
+
+
+char **splitstr(char *line, char *linecopy, unsigned int *count)
+{
+        char *token;
+        char *delim = " \n";
+        char **tokenarray;
+        unsigned int tokencount = 0;
+        int i = 0;
+
+
+        if (line == NULL || linecopy == NULL)
+                return(NULL);
+        token = strtok(line, delim);
+        tokencount++;
+
+
+        while (token != NULL)
+        {
+                token = strtok(NULL, delim);
+                tokencount++;
+        }
+        tokenarray = malloc(sizeof(char *) * tokencount);
+        if (tokenarray == NULL)
+                return(NULL);
+        *count = tokencount;
+
+
+        token = strtok(linecopy, delim);
+        for (i = 0; token != NULL; i++)
+        {
+                tokenarray[i] = malloc(sizeof(char) * (strlen(token) + 1));
+                if (tokenarray[i] == NULL)
+                        return(NULL);
+                strcpy(tokenarray[i], token);
+                token = strtok(NULL, delim);
+        }
+        tokenarray[i] = NULL;
+
+
+        return (tokenarray);
+}
+
+
+
+
+
+
+
+
+exec.c function
+#include “main.h”
+
+
+void execute(char *array[])
+{
+    if (execve(array[0], array, environ) == -1)
+    {
+        perror("Error:");
+    }
+}
+
+
+Main.h
+
+
+#ifndef _MAIN_H_
+#define _MAIN_H_
+
+
+#include <stdio.h>
+#include <string.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <sys/wait.h>
+
+
+extern char **environ;
+void execute(char *array[]);
+char **splitstr(char *line, char *linecopy, unsigned int *count);
+
+
+#endif /*_MAIN_H_*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Environment exercise 0:
+#include <stdio.h>
+#include <stdlib.h>
+
+
+extern char **environ;
+
+
+int main(void){
+
+
+    unsigned int i;
+
+
+    i = 0;
+    while (environ[i] != NULL)
+    {
+        printf("%s\n", environ[i]);
+        i++;
+    }
+    return (0);
+}
+
+
+Quick implementation of getenv
+char *_getenv(char *name)
+{
+    unsigned int i;
+    int compare;
+   
+
+
+    i = 0;
+    while (environ[i] != NULL)
+    {
+        compare = strncmp(environ[i],name, strlen(name));
+
+
+        if (compare == 0)
+        {
+            return (environ[i]);
+        }
+        i++;
+    }
+
+
+    return (NULL);
+}
+
+
+
+
+int main(void)
+{
+    char *home = getenv("HOME");
+    char *path = getenv("PATH");
+    char *myhome = _getenv("HOME");
+
+
+    if (myhome == NULL)
+    {
+        printf("Error :(\n");
+    }
+
+
+    printf("%s\n", home);
+    printf("%s\n", myhome);
+    printf("%s", path);
+
+
+    return (0);
+}
+
+
+/*
+OUTPUT:
+
+
+/home/nightlock
+HOME=/home/nightlock
+*/
+
+
+How setenv works
+#include "main.h"
+
+
+int main(void)
+{
+    int set_ret;
+    int set_ret2;
+    char *getmyvariable;
+
+
+    set_ret = setenv("MYVARIABLE", "25", 0);
+    if (set_ret < 0)
+        perror("setenv");
+
+
+    getmyvariable = getenv("MYVARIABLE");
+
+
+    if(getmyvariable == NULL)
+        perror("getenv");
+
+
+    printf("MYVARIABLE=%s\n", getmyvariable);
+
+
+    set_ret2 = setenv("MYVARIABLE", "20", 1);
+
+
+    if (set_ret2 < 0)
+        perror("setenv");
+
+
+    getmyvariable = getenv("MYVARIABLE");
+
+
+    if(getmyvariable == NULL)
+        perror("getenv");
+
+
+    printf("MYVARIABLE=%s\n", getmyvariable);
+}
+
+
+How unset env works
+int main(void)
+{
+    int set_ret;
+    int set_ret2;
+    int unset_ret;
+    char *getmyvariable;
+
+
+    set_ret = setenv("MYVARIABLE", "25", 0);
+    if (set_ret < 0)
+        perror("setenv");
+
+
+    getmyvariable = getenv("MYVARIABLE");
+
+
+    if(getmyvariable == NULL)
+        perror("getenv");
+
+
+    printf("MYVARIABLE=%s\n", getmyvariable);
+
+
+    set_ret2 = setenv("MYVARIABLE", "20", 1);
+
+
+    if (set_ret2 < 0)
+        perror("setenv");
+
+
+    unset_ret = unsetenv("MYVARIABLE");
+    if (unset_ret < 0)
+        perror("unsetenv");
+
+
+    getmyvariable = getenv("MYVARIABLE");
+
+
+    if(getmyvariable == NULL)
+    {
+        printf("getenv: ERROR");
+        exit(EXIT_FAILURE);
+    }
+
+
+    printf("MYVARIABLE=%s\n", getmyvariable);
+
+
+    return (0);
+}
