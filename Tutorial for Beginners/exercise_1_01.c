@@ -1,13 +1,18 @@
 #include <stdio.h>
-#include <unistd.h>
-#include <string.h>
-#include <unistd.h>
+#include <windows.h>
 
-
-//fork function
-int main (int argc, char* argv[])
+int main(void)
 {
-    fork();
-    printf("hello world\n");
+    int a=3;
+    int b =5;
+    DWORD ppid;
+
+    int sum=a+b;
+
+    printf("sum is %d\n", sum);
+
+    ppid = GetParentProcessId(GetCurrentProcessId());
+    printf("my ppid is %u\n",  ppid);
+
     return 0;
 }
