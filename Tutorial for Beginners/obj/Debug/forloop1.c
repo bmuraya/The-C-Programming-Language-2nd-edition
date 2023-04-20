@@ -1,13 +1,16 @@
 #include <stdio.h>
 
-void main ()
+int main()
 {
-  int fahr 
-
-  for(fahr=0;  fahr<=300; fahr+=20)
-    printf("%3d %6.1f", fahr,(5.0/9.0)*(fahr-32));
-
-    return 0;
-
-
-}
+	int  a, b, avg, count ;
+	
+	for(count = 1; count<=3; count++)
+	{
+		printf("Enter values of a and b: ");
+		scanf("%d %d",&a,&b);
+		avg=(a+b)/2;
+		printf("Average = %d" , avg);
+	}
+	
+	return 0;
+}sss
